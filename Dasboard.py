@@ -1,3 +1,5 @@
+import os
+
 import streamlit as st 
 import pandas as pd
 import seaborn as sns
@@ -12,10 +14,17 @@ st.set_page_config(
 def load_data():
     return pd.read_csv("https://raw.githubusercontent.com/Quera-fr/Python-Programming/refs/heads/main/data.csv")
 
+# Récupérer l'API_KEY sur streamlit cloud
 try:
     st.sidebar.write(st.secrets(['API_KEY']))
 except:
-    st.sidebar.error('This is an error', icon="🚨")
+    st.sidebar.error('Absence de clé Streamlit Cloud', icon="🚨")
+    
+# Récupérer l'API_KEY sur Heroku
+try:
+    st.sidebar.write(os.environ['API_KEY'])
+except:
+    st.sidebar.error('Absence de clé Heroku', icon="🚨")
 
 df = load_data()
 
@@ -25,7 +34,7 @@ st.subheader('Presentation de data')
 
 st.write('Presentation des data avec streamlit')
 
-# Datafram
+# Dataframe
 if st.checkbox('Afficher le df'):
     st.write(df)
 
@@ -47,11 +56,11 @@ with st.form(key='my_form'):
     
     with col1:
         # Selectionner une profession
-        profession = st.selectbox("Sélectionner une profession", df.Profession.unique())
+        profession = st.selectbox("Sélectionnez une profession", df.Profession.unique())
         
         # Selectionner une tranche d'âge
         ages = st.slider(
-            'Sélectionner une tranche d\'âge',
+            'Sélectionnez une tranche d\'âge',
             df.Age.min(), df.Age.max(),
             (df.Age.min(), df.Age.max())
         )
