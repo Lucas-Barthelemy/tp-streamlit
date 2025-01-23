@@ -15,7 +15,7 @@ def load_data():
 try:
     st.sidebar.write(st.secrets(['API_KEY']))
 except:
-    st.error('This is an error', icon="🚨")
+    st.sidebar.error('This is an error', icon="🚨")
 
 df = load_data()
 
