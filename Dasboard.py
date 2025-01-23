@@ -26,10 +26,10 @@ if st.checkbox('Afficher le formulaire'):
     if name != "":
         st.write(f"Salut, {name}")
 
-# Image
+# Image dans la sidebar
 st.sidebar.image("https://cdn.cookielaw.org/logos/09f2ba89-076e-413b-b34f-a8d20370f3f5/35c98a5f-cba8-4b1a-959f-c5a7c260dfda/e0191cfb-2e2a-43c1-a11f-929eb86731a0/logo.png", width=300)
 
-# Video
+# Video dans la sidebar
 st.sidebar.video("https://www.youtube.com/watch?v=LUcyjBQy3vc")
 
 with st.form(key='my_form'):
@@ -58,5 +58,5 @@ with st.form(key='my_form'):
         ].Age
         
         if submit_button:
-            plot = sns.histplot(data_age, bins=ages[1]-ages[0])
+            plot = sns.histplot(data_age, bins=ages[1]-ages[0] if ages[1]-ages[0] != 0 else 1)
             st.pyplot(plot.figure)
